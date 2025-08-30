@@ -983,3 +983,77 @@ object {
 .gallery-caption {
 	display: block;
 }
+
+/* Custom Header Styles */
+#custom-header {
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Top Bar */
+.top-bar {
+    background-color: #F56C3D;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.top-bar .contact-info-header span {
+    font-size: 16px;
+	color: #c73c00;
+}
+
+/* Login & Sign Up Buttons */
+.auth-buttons a {
+    text-decoration: none;
+    color: #c73c00;
+    font-weight: bold;
+    margin-left: 20px;
+    padding: 10px 20px;
+    border: 2px solid #F56C3D;
+    border-radius: 5px;
+}
+
+.auth-buttons .login {
+    margin-right: 10px;
+}
+
+.auth-buttons a:hover {
+    background-color: #c73c00;
+    color: white;
+}
+
+/* Main Header Section */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+/* Logo */
+.logo img {
+    max-height: 60px;
+}
+
+/* Navigation Menu */
+.main-navigation .nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-navigation .nav-menu li {
+    margin: 0 20px;
+}
+
+.main-navigation .nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
