@@ -4,6 +4,8 @@
  */
 
 get_header();
+
+$opts = get_option('ct_theme_settings', []);
 ?>
 
 <div>
@@ -54,23 +56,23 @@ get_header();
 
             <div class="company">
                 <p class="org">Coalition Skills Test</p>
-                <p>535 La Plata Street<br>4200 Argentina</p>
+                <p><?php echo $opts['address'] ?></p>
 
-                <p class="tel"><strong>Phone:</strong> 385.154.11.28.38</p>
-                <p class="fax"><strong>Fax:</strong> 385.154.35.66.78</p>
+                <p class="tel"><strong>Phone:</strong> <?php echo $opts['phone'] ?></p>
+                <p class="fax"><strong>Fax:</strong> <?php echo $opts['fax'] ?></p>
             </div>
 
             <div class="social-media social-reach">
-                <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                <a href="<?php echo $opts['social']['facebook'] ?>" target="_blank" aria-label="Facebook">
                 <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+                <a href="<?php echo $opts['social']['twitter'] ?>" target="_blank" aria-label="Twitter">
                 <i class="fab fa-twitter"></i>
                 </a>
-                <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                <a href="<?php echo $opts['social']['linkedin'] ?>" target="_blank" aria-label="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
                 </a>
-                <a href="https://pinterest.com" target="_blank" aria-label="Pinterest">
+                <a href="<?php echo $opts['social']['pinterest'] ?>" target="_blank" aria-label="Pinterest">
                 <i class="fab fa-pinterest-p"></i>
                 </a>
             </div>

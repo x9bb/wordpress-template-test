@@ -9,6 +9,10 @@
  * @package CT_Custom
  */
 
+$opts = get_option('ct_theme_settings', []);
+$logo_id = isset($opts['logo_id']) ? (int)$opts['logo_id'] : 0;
+$home_url = esc_url(home_url('/'));
+$alt      = get_bloginfo('name');
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -28,7 +32,7 @@
 		<!-- Top Bar Section -->
 		<div class="top-bar">
 			<div class="contact-info-header">
-				<span>CALL US NOW!</span> <strong>385.154.11.28.35</strong>
+				<span>CALL US NOW!</span> <strong><?php echo $opts['phone'] ?></strong>
 			</div>
 
 			<!-- Login/Signup Buttons -->
@@ -41,9 +45,30 @@
 		<!-- Main Header Section -->
 		<div class="main-header">
 			<div class="logo">
-				<!-- Your Logo -->
-				<a href="<?php echo esc_url(home_url('/')); ?>">
-					<img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" alt="Your Logo">
+				<a href="<?php echo $home_url; ?>" rel="home">
+					<?php if ($logo_id) : ?>
+					<?php
+						echo wp_get_attachment_image(
+						$logo_id,
+						'full', // or a custom size like 'ct-logo'
+						false,
+						[
+							'class'    => 'site-logo',
+							'alt'      => $alt,
+							'loading'  => 'eager',
+							'decoding' => 'async',
+						]
+						);
+					?>
+					<?php else : ?>
+					<img
+						class="site-logo"
+						src="<?php echo esc_url( get_template_directory_uri() . '/images/logo.png' ); ?>"
+						alt="<?php echo esc_attr($alt); ?>"
+						loading="eager"
+						decoding="async"
+					/>
+					<?php endif; ?>
 				</a>
 			</div>
 

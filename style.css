@@ -1034,9 +1034,15 @@ object {
     padding: 20px;
 }
 
-/* Logo */
-.logo img {
-    max-height: 60px;
+/* header link height is optional, but keeps layout tidy */
+.logo a { display: inline-flex; align-items: center; height: 60px; }
+
+/* image scales proportionally */
+.site-logo {
+  display: block;
+  height: 60px;
+  width: auto;        /* keep aspect ratio */
+  max-height: 60px;   /* belt-and-suspenders */
 }
 
 /* Navigation Menu */

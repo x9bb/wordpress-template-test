@@ -264,6 +264,7 @@ add_action('admin_init', function () {
         'instagram' => __('Instagram URL', 'ct-custom'),
         'linkedin'  => __('LinkedIn URL', 'ct-custom'),
         'youtube'   => __('YouTube URL', 'ct-custom'),
+		'pinterest' => __('Pinterest URL', 'ct-custom'),
     ] as $key => $label) {
         add_settings_field(
             "ct_social_{$key}",
@@ -290,6 +291,7 @@ function ct_get_settings() {
             'instagram' => '',
             'linkedin'  => '',
             'youtube'   => '',
+			'pinterest' => '',
         ],
     ];
     $opts = get_option('ct_theme_settings', []);
@@ -346,6 +348,7 @@ function ct_field_social_cb($network_key) {
         'instagram' => 'https://instagram.com/yourhandle',
         'linkedin'  => 'https://www.linkedin.com/company/yourcompany',
         'youtube'   => 'https://www.youtube.com/@yourchannel',
+		'pinterest' => 'https://www.pinterest.com/yourhandle/',
     ];
     $placeholder = isset($placeholders[$network_key]) ? $placeholders[$network_key] : 'https://';
     ?>
