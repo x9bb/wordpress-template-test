@@ -1030,7 +1030,7 @@ object {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #f9f9f9;
     padding: 20px;
 }
 
@@ -1303,6 +1303,7 @@ ct-breadcrumb{margin:6px 0 18px;font-size:15px}
     .main-header {
         flex-direction: column;
         text-align: center;
+		background-color: #f9f9f9;
     }
 
     .logo img {
