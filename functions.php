@@ -167,3 +167,226 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/inc/woocommerce.php';
 }
+
+add_action('admin_menu', function () {
+    // Top-level menu
+    add_menu_page(
+        __('Themes Setting', 'ct-custom'),
+        __('Themes Setting', 'ct-custom'),
+        'edit_theme_options',
+        'ct-theme-settings',
+        'ct_render_theme_settings_page',
+        'dashicons-admin-generic',
+        56
+    );
+});
+
+function ct_render_theme_settings_page() {
+	if (!current_user_can('edit_theme_options')) {
+        wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'your-theme'));
+    }
+
+    // Prefer child theme path; falls back to parent if you swap to get_template_directory().
+    $file = get_stylesheet_directory() . '/admin/themes-settings-page.php';
+
+    if (file_exists($file)) {
+        include $file;
+    } else {
+        echo '<div class="wrap"><h1>' . esc_html__('Theme Tools', 'your-theme') . '</h1>';
+        echo '<p>' . esc_html__('Missing admin/themes-settings-page.php.php file. Create it in your theme.', 'your-theme') . '</p></div>';
+    }
+}
+
+/**
+ * Register settings, sections, and fields
+ */
+add_action('admin_init', function () {
+    // Single option array to keep things tidy
+    register_setting('ct_theme_settings_group', 'ct_theme_settings', [
+        'sanitize_callback' => 'ct_sanitize_theme_settings',
+    ]);
+
+    // ---- General Section ----
+    add_settings_section(
+        'ct_section_general',
+        __('General', 'ct-custom'),
+        function () {
+            echo '<p>'.esc_html__('Upload your logo and basic contact info.', 'ct-custom').'</p>';
+        },
+        'ct_theme_settings_page'
+    );
+
+    add_settings_field(
+        'ct_logo_id',
+        __('Logo', 'ct-custom'),
+        'ct_field_logo_cb',
+        'ct_theme_settings_page',
+        'ct_section_general'
+    );
+
+    add_settings_field(
+        'ct_phone',
+        __('Phone Number', 'ct-custom'),
+        'ct_field_phone_cb',
+        'ct_theme_settings_page',
+        'ct_section_general'
+    );
+
+    add_settings_field(
+        'ct_address',
+        __('Address', 'ct-custom'),
+        'ct_field_address_cb',
+        'ct_theme_settings_page',
+        'ct_section_general'
+    );
+
+    add_settings_field(
+        'ct_fax',
+        __('Fax Number', 'ct-custom'),
+        'ct_field_fax_cb',
+        'ct_theme_settings_page',
+        'ct_section_general'
+    );
+
+    // ---- Social Section ----
+    add_settings_section(
+        'ct_section_social',
+        __('Social Media Links', 'ct-custom'),
+        function () {
+            echo '<p>'.esc_html__('Add full URLs for profiles (optional).', 'ct-custom').'</p>';
+        },
+        'ct_theme_settings_page'
+    );
+
+    foreach ([
+        'facebook'  => __('Facebook URL', 'ct-custom'),
+        'twitter'   => __('X / Twitter URL', 'ct-custom'),
+        'instagram' => __('Instagram URL', 'ct-custom'),
+        'linkedin'  => __('LinkedIn URL', 'ct-custom'),
+        'youtube'   => __('YouTube URL', 'ct-custom'),
+    ] as $key => $label) {
+        add_settings_field(
+            "ct_social_{$key}",
+            $label,
+            function () use ($key) { ct_field_social_cb($key); },
+            'ct_theme_settings_page',
+            'ct_section_social'
+        );
+    }
+});
+
+/**
+ * Field callbacks
+ */
+function ct_get_settings() {
+    $defaults = [
+        'logo_id'  => 0,
+        'phone'    => '',
+        'address'  => '',
+        'fax'      => '',
+        'social'   => [
+            'facebook'  => '',
+            'twitter'   => '',
+            'instagram' => '',
+            'linkedin'  => '',
+            'youtube'   => '',
+        ],
+    ];
+    $opts = get_option('ct_theme_settings', []);
+    // Ensure nested structure
+    $opts = wp_parse_args($opts, $defaults);
+    $opts['social'] = wp_parse_args($opts['social'], $defaults['social']);
+    return $opts;
+}
+
+function ct_field_logo_cb() {
+    $opts = ct_get_settings();
+    $id   = isset($opts['logo_id']) ? (int)$opts['logo_id'] : 0;
+    $url  = $id ? wp_get_attachment_image_url($id, 'medium') : '';
+    ?>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+        <input type="hidden" id="ct_logo_id" name="ct_theme_settings[logo_id]" value="<?php echo esc_attr($id); ?>">
+        <img id="ct_logo_preview" src="<?php echo esc_url($url ?: ''); ?>" alt="" style="max-height:60px;<?php echo $url ? '' : 'display:none;'; ?>">
+        <button type="button" class="button" id="ct_logo_select"><?php esc_html_e('Select Image', 'ct-custom'); ?></button>
+        <button type="button" class="button" id="ct_logo_remove" <?php echo $url ? '' : 'style="display:none;"'; ?>>
+            <?php esc_html_e('Remove', 'ct-custom'); ?>
+        </button>
+    </div>
+    <p class="description"><?php esc_html_e('Recommended: transparent PNG or SVG.', 'ct-custom'); ?></p>
+    <?php
+}
+
+function ct_field_phone_cb() {
+    $opts = ct_get_settings();
+    ?>
+    <input type="text" class="regular-text" name="ct_theme_settings[phone]" value="<?php echo esc_attr($opts['phone']); ?>" placeholder="+1 (555) 123-4567">
+    <?php
+}
+
+function ct_field_address_cb() {
+    $opts = ct_get_settings();
+    ?>
+    <textarea class="large-text" rows="3" name="ct_theme_settings[address]" placeholder="<?php esc_attr_e('123 Main St, City, State ZIP', 'ct-custom'); ?>"><?php echo esc_textarea($opts['address']); ?></textarea>
+    <?php
+}
+
+function ct_field_fax_cb() {
+    $opts = ct_get_settings();
+    ?>
+    <input type="text" class="regular-text" name="ct_theme_settings[fax]" value="<?php echo esc_attr($opts['fax']); ?>" placeholder="+1 (555) 987-6543">
+    <?php
+}
+
+function ct_field_social_cb($network_key) {
+    $opts = ct_get_settings();
+    $val  = isset($opts['social'][$network_key]) ? $opts['social'][$network_key] : '';
+    $placeholders = [
+        'facebook'  => 'https://facebook.com/yourpage',
+        'twitter'   => 'https://twitter.com/yourhandle',
+        'instagram' => 'https://instagram.com/yourhandle',
+        'linkedin'  => 'https://www.linkedin.com/company/yourcompany',
+        'youtube'   => 'https://www.youtube.com/@yourchannel',
+    ];
+    $placeholder = isset($placeholders[$network_key]) ? $placeholders[$network_key] : 'https://';
+    ?>
+    <input type="url" class="regular-text code" name="ct_theme_settings[social][<?php echo esc_attr($network_key); ?>]" value="<?php echo esc_attr($val); ?>" placeholder="<?php echo esc_attr($placeholder); ?>">
+    <?php
+}
+
+/**
+ * Sanitize all fields before saving
+ */
+function ct_sanitize_theme_settings($input) {
+    $output = ct_get_settings(); // start from defaults/shape
+
+    // Logo
+    $output['logo_id'] = isset($input['logo_id']) ? absint($input['logo_id']) : 0;
+
+    // Contact
+    $output['phone']   = isset($input['phone'])   ? sanitize_text_field($input['phone'])   : '';
+    $output['address'] = isset($input['address']) ? sanitize_textarea_field($input['address']) : '';
+    $output['fax']     = isset($input['fax'])     ? sanitize_text_field($input['fax'])     : '';
+
+    // Socials
+    if (isset($input['social']) && is_array($input['social'])) {
+        foreach ($output['social'] as $key => $old) {
+            $output['social'][$key] = isset($input['social'][$key]) ? esc_url_raw(trim($input['social'][$key])) : '';
+        }
+    }
+
+    return $output;
+}
+
+add_action('admin_enqueue_scripts', function ($hook) {
+    // Hook name for a theme page: appearance_page_{slug}
+    if ($hook === 'toplevel_page_ct-theme-settings') {
+        wp_enqueue_media(); // enables wp.media
+        wp_enqueue_script(
+            'ct-theme-settings',
+            get_stylesheet_directory_uri() . '/admin/theme-settings.js',
+            ['jquery'],
+            '1.0',
+            true
+        );
+    }
+});
