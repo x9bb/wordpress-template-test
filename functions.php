@@ -44,7 +44,7 @@ if ( ! function_exists( 'ct_custom_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'ct-custom' ),
+			'primary' => esc_html__( 'Primary', 'ct-custom' ),
 		) );
 
 		/*
