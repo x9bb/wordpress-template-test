@@ -657,6 +657,7 @@ a:hover, a:active {
 	top: 100%;
 	left: -999em;
 	z-index: 99999;
+	background-color: #f9f9f9;
 }
 
 .main-navigation ul ul ul {
