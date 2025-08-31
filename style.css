@@ -1099,12 +1099,37 @@ object {
 	margin: 0 auto;
 }
 
-ct-breadcrumb{margin:6px 0 18px;font-size:15px}
-.ct-breadcrumb ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap}
-.ct-breadcrumb li{color:#b8b3ae}
-.ct-breadcrumb li a{color:#b8b3ae;text-decoration:none}
-.ct-breadcrumb li+li::before{content:"/";margin:0 8px;color:#b8b3ae}
-.ct-breadcrumb .current{color:#3a3a3a;font-weight:700}
+.content-header p {
+	margin-bottom: 45px;
+}
+
+.ct-breadcrumb{
+	margin:40px 0 70px;
+	font-size:15px
+}
+.ct-breadcrumb ol{
+	list-style:none;
+	margin:0;
+	padding:0;
+	display:flex;
+	flex-wrap:wrap
+}
+.ct-breadcrumb li{
+	color:#b8b3ae
+}
+.ct-breadcrumb li a{
+	color:#b8b3ae;
+	text-decoration:none
+}
+.ct-breadcrumb li+li::before{
+	content:"/";
+	margin:0 8px;
+	color:#b8b3ae
+}
+.ct-breadcrumb .current{
+	color:#3a3a3a;
+	font-weight:700
+}
 
 .contact-container {
     display: flex;

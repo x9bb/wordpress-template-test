@@ -8,7 +8,7 @@ get_header();
 $opts = get_option('ct_theme_settings', []);
 ?>
 
-<div>
+<div class="content-header">
     <nav class="ct-breadcrumb" aria-label="Breadcrumb">
         <ol>
             <li><a href="<?php echo esc_url( home_url('/') ); ?>">Home</a></li>
