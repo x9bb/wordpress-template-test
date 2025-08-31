@@ -128,6 +128,8 @@ function ct_custom_scripts() {
 
 	wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css' );
 
+	wp_enqueue_script( 'ct-mobile-menu', get_stylesheet_directory_uri() . '/js/mobile-menu.js', ['jquery'], '1.0', false );
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}

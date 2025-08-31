@@ -73,13 +73,29 @@ $alt      = get_bloginfo('name');
 			</div>
 
 			<!-- Navigation Menu -->
-			 <div class="main-menu">
-				<nav class="main-navigation">
+			<div class="main-menu">
+				<!-- Kebab toggle (mobile) -->
+				<button class="kebab-toggle"
+						aria-label="<?php esc_attr_e('Open menu','ct-custom'); ?>"
+						aria-controls="primary-menu"
+						aria-expanded="false"
+						type="button">
+					<svg class="kebab-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+					<circle cx="12" cy="5" r="2"></circle>
+					<circle cx="12" cy="12" r="2"></circle>
+					<circle cx="12" cy="19" r="2"></circle>
+					</svg>
+					<span class="screen-reader-text"><?php esc_html_e('Menu','ct-custom'); ?></span>
+				</button>
+
+				<nav id="primary-menu" class="main-navigation" aria-label="<?php esc_attr_e('Primary','ct-custom'); ?>">
 					<?php
-					wp_nav_menu(array(
-						'theme_location' => 'primary', // Assuming you have registered a primary menu
-						'menu_class' => 'nav-menu',
-					));
+					wp_nav_menu([
+						'theme_location' => 'primary',
+						'container'      => false,
+						'menu_class'     => 'nav-menu',
+						'fallback_cb'    => false,
+					]);
 					?>
 				</nav>
 			</div>

@@ -1003,6 +1003,7 @@ object {
 .top-bar .contact-info-header span {
     font-size: 16px;
 	color: #c73c00;
+	margin-right: 10px;
 }
 
 /* Login & Sign Up Buttons */
@@ -1026,23 +1027,36 @@ object {
 }
 
 /* Main Header Section */
-.main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f9f9f9;
-    padding: 20px;
+/* Make the header the positioning context for the dropdown */
+.main-header { 
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	text-align: center;
+	background-color: #f9f9f9;
 }
+
+/* Kebab button (hidden on desktop) */
+.kebab-toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  padding: 8px;
+  margin-left: 12px;
+  line-height: 0;
+  cursor: pointer;
+}
+.kebab-icon { width: 24px; height: 24px; }
 
 /* header link height is optional, but keeps layout tidy */
 .logo a { display: inline-flex; align-items: center; height: 60px; }
 
-/* image scales proportionally */
 .site-logo {
   display: block;
   height: 60px;
-  width: auto;        /* keep aspect ratio */
-  max-height: 60px;   /* belt-and-suspenders */
+  width: auto;
+  max-height: 60px;
 }
 
 /* Navigation Menu */
@@ -1300,11 +1314,38 @@ ct-breadcrumb{margin:6px 0 18px;font-size:15px}
 }
 
 @media (max-width: 768px) {
-    .main-header {
-        flex-direction: column;
-        text-align: center;
-		background-color: #f9f9f9;
-    }
+	.kebab-toggle { display: inline-flex; }
+
+	/* The dropdown panel */
+	.main-navigation {
+		display: none;
+		position: absolute;
+		right: 16px;
+		top: calc(100% + 8px);  /* just below header row */
+		background: #fff;
+		width: min(80vw, 320px);
+		max-height: 70vh;
+		overflow: auto;
+		border: 1px solid #e5e7eb;
+		border-radius: 12px;
+		box-shadow: 0 10px 30px rgba(0,0,0,.12);
+		z-index: 1000;
+	}
+	.main-navigation.is-open { display: block; }
+
+	.nav-menu { list-style: none; margin: 0; padding: 6px 0; }
+	.nav-menu > li { border-bottom: 1px solid #f2f2f2; }
+	.nav-menu > li:last-child { border-bottom: 0; }
+	.nav-menu a {
+		display: block;
+		padding: 12px 16px;
+		text-decoration: none;
+		color: inherit;
+	}
+	
+	.top-bar {
+		flex-direction: column;
+	}
 
     .logo img {
         max-height: 50px;
@@ -1323,5 +1364,23 @@ ct-breadcrumb{margin:6px 0 18px;font-size:15px}
 		width: 100%;
 		margin-right: 0 !important;
 	}
+
+	.contact-container {
+		flex-direction: column;
+	}
+
+	.contact-form {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	.contact-info { 
+		width:100%; 
+	}
 }
 
+/* Desktop: horizontal menu */
+@media (min-width: 769px) {
+	.nav-menu { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; }
+	.nav-menu a { text-decoration: none; padding: 8px 0; display: inline-block; }
+}
