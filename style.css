@@ -997,8 +997,14 @@ object {
     color: white;
     padding: 10px 0;
     text-align: center;
+}
+
+.top-bar-container, .main-header-container {
+	width: 1200px;
+	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
 
 .top-bar .contact-info-header span {
@@ -1051,7 +1057,16 @@ object {
 .kebab-icon { width: 24px; height: 24px; }
 
 /* header link height is optional, but keeps layout tidy */
-.logo a { display: inline-flex; align-items: center; height: 60px; }
+.logo {
+	display: flex;
+	align-items: center;
+}
+
+.logo a { 
+	display: inline-flex;
+	align-items: center;
+	height: 60px;
+}
 
 .site-logo {
   display: block;
@@ -1079,6 +1094,11 @@ object {
 }
 
 /* Main container */
+.site-content {
+	width: 1200px;
+	margin: 0 auto;
+}
+
 ct-breadcrumb{margin:6px 0 18px;font-size:15px}
 .ct-breadcrumb ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap}
 .ct-breadcrumb li{color:#b8b3ae}
@@ -1348,6 +1368,24 @@ ct-breadcrumb{margin:6px 0 18px;font-size:15px}
 		flex-direction: column;
 	}
 
+	.top-bar-container{
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 10px;
+	}
+
+	.main-header-container {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 10px;
+	}
+
     .logo img {
         max-height: 50px;
     }
@@ -1360,6 +1398,11 @@ ct-breadcrumb{margin:6px 0 18px;font-size:15px}
     .auth-buttons {
         margin-top: 20px;
     }
+
+	.site-content {
+		width: 100%;
+		padding: 0 10px;
+	}
 
 	.contact-form .half {
 		width: 100%;

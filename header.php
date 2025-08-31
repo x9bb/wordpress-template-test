@@ -31,74 +31,78 @@ $alt      = get_bloginfo('name');
 	<header id="custom-header" class="site-header">
 		<!-- Top Bar Section -->
 		<div class="top-bar">
-			<div class="contact-info-header">
-				<span>CALL US NOW!</span> <strong><?php echo $opts['phone'] ?></strong>
-			</div>
+			<div class="top-bar-container">
+				<div class="contact-info-header">
+					<span>CALL US NOW!</span> <strong><?php echo $opts['phone'] ?></strong>
+				</div>
 
-			<!-- Login/Signup Buttons -->
-			<div class="auth-buttons">
-				<a href="#" class="login">LOGIN</a>
-				<a href="#" class="signup">SIGN UP</a>
-			</div>
+				<!-- Login/Signup Buttons -->
+				<div class="auth-buttons">
+					<a href="#" class="login">LOGIN</a>
+					<a href="#" class="signup">SIGN UP</a>
+				</div>
+			</div>			
 		</div>
 
 		<!-- Main Header Section -->
 		<div class="main-header">
-			<div class="logo">
-				<a href="<?php echo $home_url; ?>" rel="home">
-					<?php if ($logo_id) : ?>
-					<?php
-						echo wp_get_attachment_image(
-						$logo_id,
-						'full', // or a custom size like 'ct-logo'
-						false,
-						[
-							'class'    => 'site-logo',
-							'alt'      => $alt,
-							'loading'  => 'eager',
-							'decoding' => 'async',
-						]
-						);
-					?>
-					<?php else : ?>
-					<img
-						class="site-logo"
-						src="<?php echo esc_url( get_template_directory_uri() . '/images/logo.png' ); ?>"
-						alt="<?php echo esc_attr($alt); ?>"
-						loading="eager"
-						decoding="async"
-					/>
-					<?php endif; ?>
-				</a>
-			</div>
+			<div class="main-header-container">
+				<div class="logo">
+					<a href="<?php echo $home_url; ?>" rel="home">
+						<?php if ($logo_id) : ?>
+						<?php
+							echo wp_get_attachment_image(
+							$logo_id,
+							'full', // or a custom size like 'ct-logo'
+							false,
+							[
+								'class'    => 'site-logo',
+								'alt'      => $alt,
+								'loading'  => 'eager',
+								'decoding' => 'async',
+							]
+							);
+						?>
+						<?php else : ?>
+						<img
+							class="site-logo"
+							src="<?php echo esc_url( get_template_directory_uri() . '/images/logo.png' ); ?>"
+							alt="<?php echo esc_attr($alt); ?>"
+							loading="eager"
+							decoding="async"
+						/>
+						<?php endif; ?>
+					</a>
+				</div>
 
-			<!-- Navigation Menu -->
-			<div class="main-menu">
-				<!-- Kebab toggle (mobile) -->
-				<button class="kebab-toggle"
-						aria-label="<?php esc_attr_e('Open menu','ct-custom'); ?>"
-						aria-controls="primary-menu"
-						aria-expanded="false"
-						type="button">
-					<svg class="kebab-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
-					<circle cx="12" cy="5" r="2"></circle>
-					<circle cx="12" cy="12" r="2"></circle>
-					<circle cx="12" cy="19" r="2"></circle>
-					</svg>
-					<span class="screen-reader-text"><?php esc_html_e('Menu','ct-custom'); ?></span>
-				</button>
+				<!-- Navigation Menu -->
+				<div class="main-menu">
+					<!-- Kebab toggle (mobile) -->
+					<button class="kebab-toggle"
+							aria-label="<?php esc_attr_e('Open menu','ct-custom'); ?>"
+							aria-controls="primary-menu"
+							aria-expanded="false"
+							type="button">
+						<svg class="kebab-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+						<circle cx="12" cy="5" r="2"></circle>
+						<circle cx="12" cy="12" r="2"></circle>
+						<circle cx="12" cy="19" r="2"></circle>
+						</svg>
+						<span class="screen-reader-text"><?php esc_html_e('Menu','ct-custom'); ?></span>
+					</button>
 
-				<nav id="primary-menu" class="main-navigation" aria-label="<?php esc_attr_e('Primary','ct-custom'); ?>">
-					<?php
-					wp_nav_menu([
-						'theme_location' => 'primary',
-						'container'      => false,
-						'menu_class'     => 'nav-menu',
-						'fallback_cb'    => false,
-					]);
-					?>
-				</nav>
-			</div>
+					<nav id="primary-menu" class="main-navigation" aria-label="<?php esc_attr_e('Primary','ct-custom'); ?>">
+						<?php
+						wp_nav_menu([
+							'theme_location' => 'primary',
+							'container'      => false,
+							'menu_class'     => 'nav-menu',
+							'fallback_cb'    => false,
+						]);
+						?>
+					</nav>
+				</div>
+			</div>			
 		</div>
 	</header>
 
