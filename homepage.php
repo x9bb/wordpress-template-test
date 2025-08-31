@@ -76,3 +76,5 @@ $opts = get_option('ct_theme_settings', []);
         </div>
     </div>
 </div>
+
+<?php get_footer(); ?>

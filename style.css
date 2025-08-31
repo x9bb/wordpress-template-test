@@ -1359,6 +1359,11 @@ object {
     color: #F56C3D;
 }
 
+.site-footer {
+	display: flex;
+	justify-content: center;
+}
+
 @media (max-width: 768px) {
 	.kebab-toggle { display: inline-flex; }
 
