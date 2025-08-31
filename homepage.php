@@ -16,8 +16,7 @@ $opts = get_option('ct_theme_settings', []);
             <li><a  class="current" href="#">Contact</a></li>
         </ol>
     </nav>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam posuere ipsum nec velit mattis elementum. Cum sociis natoque
-    penatibus et magnis dis parturient rnontes, nascetur ridiculus mus. Maecenas eu placerat metus, ege: placerat libero.</p>
+    <p><?php echo the_content(); ?></p>
 </div>
 
 <div class="contact-container">
